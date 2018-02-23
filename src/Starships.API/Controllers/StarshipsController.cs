@@ -6,6 +6,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using Starships.API.Model;
 using Starships.API.Service;
+using Starships.API.Filters;
 
 namespace Starships.API.Controllers
 {
@@ -19,12 +20,14 @@ namespace Starships.API.Controllers
         }
 
         [HttpGet]
+        [MyCacheFilter]
         public async Task<IEnumerable<Starship>> Get()
         {
             return await _starshipService.Get();
         }
 
         [HttpGet("{id}")]
+        [MyCacheFilter]
         public async Task<IActionResult> Get(int id)
         {
             var starship = await _starshipService.Get(id);

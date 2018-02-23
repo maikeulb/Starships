@@ -25,6 +25,13 @@ namespace Starships.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedRedisCache(options =>
+            {
+                options.Configuration = Configuration.GetConnectionString("Redis");
+                /* options.Configuration = System.Net.Dns.GetHostAddressesAsync("starships_redis_1").Result.FirstOrDefault().ToString(); */
+                options.InstanceName = Configuration.GetSection("ApplicationSettings").GetValue<string>("RedisInstanceName");
+            });
+
             services.AddSingleton<IStarshipService, StarshipApiService>();
 
             services.AddMvc().AddJsonOptions(options => {
