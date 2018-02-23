@@ -12,7 +12,7 @@ namespace Starships.API.Service
 {
     public class StarshipApiService : IStarshipService
     {
-        const string API_URL = "http://localhost:5000/api/starship";
+        const string API_URL = "http://swapi.co/api/starships";
         public async Task<IEnumerable<Starship>> Get()
         {
             return await ApiClient.Get<IEnumerable<Person>>(API_URL, (data) =>
