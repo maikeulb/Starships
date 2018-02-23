@@ -7,19 +7,19 @@ using Newtonsoft.Json;
 using Starships.API.Model;
 using Starships.API.Service;
 
-namespace Starships.API.Controller
+namespace Starships.API.Controllers
 {
     [Route("api/[controller]")]
-    public class StarshipController : Controller
+    public class StarshipsController : Controller
     {
         private readonly IStarshipService _starshipService;
-        public StarshipController(IStarshipService starshipService)
+        public StarshipsController(IStarshipService starshipService)
         {
             _starshipService = starshipService;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Pokemon>> Get()
+        public async Task<IEnumerable<Starship>> Get()
         {
             return await _starshipService.Get();
         }

@@ -9,8 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using Starship.API.Model;
-using Starship.API.Service;
+using Starships.API.Model;
+using Starships.API.Service;
 
 namespace Starships.API
 {

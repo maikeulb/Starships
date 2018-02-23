@@ -1,0 +1,10 @@
+/home/michael/Projects-DotNet/Starships/src/Starships.API/obj/Debug/netcoreapp2.0/Starships.API.csproj.CoreCompileInputs.cache
+/home/michael/Projects-DotNet/Starships/src/Starships.API/obj/Debug/netcoreapp2.0/Starships.API.AssemblyInfoInputs.cache
+/home/michael/Projects-DotNet/Starships/src/Starships.API/obj/Debug/netcoreapp2.0/Starships.API.AssemblyInfo.cs
+/home/michael/Projects-DotNet/Starships/src/Starships.API/bin/Debug/netcoreapp2.0/Starships.API.deps.json
+/home/michael/Projects-DotNet/Starships/src/Starships.API/bin/Debug/netcoreapp2.0/Starships.API.runtimeconfig.json
+/home/michael/Projects-DotNet/Starships/src/Starships.API/bin/Debug/netcoreapp2.0/Starships.API.runtimeconfig.dev.json
+/home/michael/Projects-DotNet/Starships/src/Starships.API/bin/Debug/netcoreapp2.0/Starships.API.dll
+/home/michael/Projects-DotNet/Starships/src/Starships.API/bin/Debug/netcoreapp2.0/Starships.API.pdb
+/home/michael/Projects-DotNet/Starships/src/Starships.API/obj/Debug/netcoreapp2.0/Starships.API.dll
+/home/michael/Projects-DotNet/Starships/src/Starships.API/obj/Debug/netcoreapp2.0/Starships.API.pdb
