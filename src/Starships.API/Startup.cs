@@ -11,6 +11,9 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Starships.API.Model;
 using Starships.API.Service;
+using Swashbuckle.AspNetCore;
+using Swashbuckle.AspNetCore.Swagger;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace Starships.API
 {
@@ -38,7 +41,11 @@ namespace Starships.API
                 options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
             });
 
-            services.AddMvc();
+            services.AddSwaggerGen(swagger =>
+            {
+                swagger.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "My Starship API" });
+            });
+            
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -47,6 +54,12 @@ namespace Starships.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My Pokemon API");
+            });
 
             app.UseMvc();
         }

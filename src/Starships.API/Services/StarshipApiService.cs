@@ -46,11 +46,10 @@ namespace Starships.API.Service
         {
             return await ApiClient.Get<Starship>($"{API_URL}{id}", (data) =>
             {
-                _logger.LogInformation("*********************");
-                _logger.LogInformation("{0}*********************", data);
                 JObject item = JObject.Parse(data);
                 return new Starship
                 {
+                    Id = id,
                     Name = (string)item["name"],
                     Model = (string)item["model"],
                     StarshipClass = (string)item["starship_class"],

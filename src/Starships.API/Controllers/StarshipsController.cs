@@ -21,16 +21,17 @@ namespace Starships.API.Controllers
 
         [HttpGet]
         [MyCacheFilter]
-        public async Task<IEnumerable<Starship>> Get()
+        public async Task<IEnumerable<Starship>> GetStarships()
         {
             return await _starshipService.Get();
         }
 
         [HttpGet("{id}")]
         [MyCacheFilter]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> GetStarship(int id)
         {
             var starship = await _starshipService.Get(id);
+
             if (starship == null)
             { 
                 return NotFound(id); 
