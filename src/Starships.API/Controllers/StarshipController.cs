@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
-using Starship.Model;
-using Starship.Services;
+using Starships.API.Model;
+using Starships.API.Service;
 
-namespace Starship.API.Controller
+namespace Starships.API.Controller
 {
     [Route("api/[controller]")]
     public class StarshipController : Controller

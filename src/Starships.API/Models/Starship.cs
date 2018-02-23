@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Starship.Model
+namespace Starships.API.Model
 {
     public class Starship
     {

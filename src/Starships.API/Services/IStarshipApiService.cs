@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Starships.API.Model;
 
-namespace Starship.Services
+namespace Starships.API.Service
 {
     public interface IStarshipService
     {

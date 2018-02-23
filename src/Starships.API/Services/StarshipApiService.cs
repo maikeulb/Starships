@@ -5,8 +5,10 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Starships.API
+using Starships.API.Model;
 
-namespace Starship.Services
+namespace Starships.API.Service
 {
     public class StarshipApiService : IStarshipService
     {
