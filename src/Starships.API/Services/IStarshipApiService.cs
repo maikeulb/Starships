@@ -6,7 +6,7 @@ namespace Starships.API.Service
 {
     public interface IStarshipService
     {
-        Task<IEnumerable<Starship>> Get();
-        Task<Starship> Get(int id);
+        Task<Starship> GetStarship(int id);
+        Task<IEnumerable<Starship>> GetStarships(int page);
     }
 }

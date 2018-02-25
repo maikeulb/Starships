@@ -13,7 +13,7 @@ namespace Starships.API.Service
 {
     public class StarshipApiService : IStarshipService
     {
-        const string API_URL = "http://swapi.co/api/starships/";
+        const string API_URL = "http://swapi.co/api/starships";
         private readonly ILogger<StarshipApiService> _logger;
 
         public StarshipApiService (ILogger<StarshipApiService> logger)
@@ -21,9 +21,10 @@ namespace Starships.API.Service
             _logger = logger;
         }
 
-        public async Task<IEnumerable<Starship>> Get()
+        public async Task<IEnumerable<Starship>> GetStarships(int page)
         {
-            return await ApiClient.Get<IEnumerable<Starship>>(API_URL, (data) =>
+            /* var URL = API_URL + "?page=" + page; */
+            return await ApiClient.Get<IEnumerable<Starship>>($"{API_URL}?page={page}", (data) =>
             {
                 JObject dymanicData = JObject.Parse(data);
                 return dymanicData["results"].Select(item => new Starship
@@ -34,17 +35,9 @@ namespace Starships.API.Service
             });
         }
 
-        private int ReadIdFromUrl(string url)
+        public async Task<Starship> GetStarship(int id)
         {
-            var uri = new System.Uri(url);
-            var lastSegment = uri.Segments[uri.Segments.Length - 1];
-            var id = Regex.Match(lastSegment, "\\d+").Value;
-            return int.Parse(id);
-        }
-
-        public async Task<Starship> Get(int id)
-        {
-            return await ApiClient.Get<Starship>($"{API_URL}{id}", (data) =>
+            return await ApiClient.Get<Starship>($"{API_URL}/{id}", (data) =>
             {
                 JObject item = JObject.Parse(data);
                 return new Starship
@@ -58,5 +51,14 @@ namespace Starships.API.Service
                 };
             });
         }
+
+        private int ReadIdFromUrl(string url)
+        {
+            var uri = new System.Uri(url);
+            var lastSegment = uri.Segments[uri.Segments.Length - 1];
+            var id = Regex.Match(lastSegment, "\\d+").Value;
+            return int.Parse(id);
+        }
+
     }
 }
