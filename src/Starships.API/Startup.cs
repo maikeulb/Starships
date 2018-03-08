@@ -31,7 +31,6 @@ namespace Starships.API
             services.AddDistributedRedisCache(options =>
             {
                 options.Configuration = Configuration.GetConnectionString("Redis");
-                /* options.Configuration = System.Net.Dns.GetHostAddressesAsync("starships_redis_1").Result.FirstOrDefault().ToString(); */
                 options.InstanceName = Configuration.GetSection("ApplicationSettings").GetValue<string>("RedisInstanceName");
             });
 
