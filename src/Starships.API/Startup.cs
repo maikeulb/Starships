@@ -44,7 +44,6 @@ namespace Starships.API
             {
                 swagger.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "My Starship API" });
             });
-            
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -57,7 +56,7 @@ namespace Starships.API
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My Pokemon API");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My Starship API");
             });
 
             app.UseMvc();

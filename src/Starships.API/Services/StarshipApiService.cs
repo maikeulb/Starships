@@ -23,7 +23,6 @@ namespace Starships.API.Service
 
         public async Task<IEnumerable<Starship>> GetStarships(int page)
         {
-            /* var URL = API_URL + "?page=" + page; */
             return await ApiClient.Get<IEnumerable<Starship>>($"{API_URL}?page={page}", (data) =>
             {
                 JObject dymanicData = JObject.Parse(data);
@@ -59,6 +58,5 @@ namespace Starships.API.Service
             var id = Regex.Match(lastSegment, "\\d+").Value;
             return int.Parse(id);
         }
-
     }
 }

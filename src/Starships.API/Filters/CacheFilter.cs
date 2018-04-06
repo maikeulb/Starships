@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -11,36 +12,44 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
+using Microsoft.Extensions.Logging;
 
 namespace Starships.API.Filters
 {
-    public class MyCacheFilter : TypeFilterAttribute
+    public class CacheFilter : TypeFilterAttribute
     {
-        public MyCacheFilter() : base(typeof(MyCacheFilterImpl)) { }
+        public CacheFilter() : base(typeof(CacheFilterImpl)) { }
 
-        class MyCacheFilterImpl : IAsyncActionFilter
+        class CacheFilterImpl : IAsyncActionFilter
         { 
-            IDistributedCache _cache;
+            private readonly IDistributedCache _cache;
+            private readonly Stopwatch _stopWatch = new Stopwatch();
+            private readonly ILogger _logger;
 
-            public MyCacheFilterImpl(IDistributedCache cache)
+            public CacheFilterImpl(
+                    IDistributedCache cache, 
+                    ILogger<CacheFilterImpl> logger)
             {
-                this._cache = cache;
+                _cache = cache;
+                _logger = logger;
             }
 
             public async Task OnActionExecutionAsync(
                 ActionExecutingContext context,
                 ActionExecutionDelegate next)
             {
-            
-                var cacheKey = GetTheCacheKey(context);
+                _stopWatch.Reset();
+                _stopWatch.Start();
+                var cacheKey = GetCacheKey(context);
 
-                Console.WriteLine($"before action executes {cacheKey}");
+                Console.WriteLine($"cache key - {cacheKey}");
 
                 var cachedString = await _cache.GetStringAsync(cacheKey);
 
                 if (!string.IsNullOrEmpty(cachedString)) 
                 {
-                    Console.WriteLine($"after action executes {cacheKey} - short circuit");
+                    _stopWatch.Stop();
+                    _logger.LogInformation("retrieved starships from cache in {}ms ", _stopWatch.ElapsedMilliseconds.ToString());
                     var cachedObj =  JsonConvert.DeserializeObject(cachedString);
                     context.Result = new Microsoft.AspNetCore.Mvc.ObjectResult(cachedObj);
                 } 
@@ -55,16 +64,15 @@ namespace Starships.API.Filters
 
                         if (value != null) 
                         {
-                            await SetTheCache(cacheKey, value);
+                            await SetCache(cacheKey, value);
                         }
                     }
-                    Console.WriteLine($"after action executes {cacheKey} ");
-                   
+                    _stopWatch.Stop();
+                    _logger.LogInformation("retrieved starships from remote api in {}ms ", _stopWatch.ElapsedMilliseconds.ToString());
                 }
-                
             }
 
-            private async Task SetTheCache(string cacheKey, object value)
+            private async Task SetCache(string cacheKey, object value)
             {
                 var cacheOptions = new DistributedCacheEntryOptions();
                 cacheOptions.SetAbsoluteExpiration(TimeSpan.FromMinutes(30));
@@ -74,7 +82,7 @@ namespace Starships.API.Filters
                 await _cache.SetStringAsync(cacheKey, jsonString, cacheOptions);   
             }
 
-            private string GetTheCacheKey(ActionExecutingContext context)
+            private string GetCacheKey(ActionExecutingContext context)
             {   
                 var cacheKey = context.HttpContext.Request.Path.Value.Replace("/", "-");
                 return cacheKey;

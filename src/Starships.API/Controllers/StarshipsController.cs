@@ -20,7 +20,7 @@ namespace Starships.API.Controllers
         }
 
         [HttpGet]
-        [MyCacheFilter]
+        [CacheFilter]
         public async Task<IEnumerable<Starship>> GetStarships(int? page)
         {
             var pageNumber = (page ?? 1);
@@ -28,19 +28,15 @@ namespace Starships.API.Controllers
         }
 
         [HttpGet("{id}")]
-        [MyCacheFilter]
+        [CacheFilter]
         public async Task<IActionResult> GetStarship(int id)
         {
             var starship = await _starshipService.GetStarship(id);
 
             if (starship == null)
-            { 
                 return NotFound(id); 
-            }
             else 
-            {
                 return Json(starship);
-            }
         }
     }
 }
