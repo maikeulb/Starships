@@ -46,7 +46,8 @@ logged to console after second request:
 
 Run
 ---
-If you have docker installed,
+
+With docker:
 ```
 docker-compose build
 docker-compose up
@@ -54,8 +55,7 @@ Go to http://localhost:5000 and visit one of the above endpoints
 ```
 
 Alternatively, you will need the .NET Core 2.0 SDK. If you have the SDK installed,
-then open `appsettings.json` and point the connection string to your server,
-then run:
+then open `appsettings.json` and point the connection string to your server.
 ```
 dotnet restore
 dotnet run
